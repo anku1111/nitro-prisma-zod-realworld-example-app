@@ -21,7 +21,8 @@ export const updateUserSchema = z.object({
     user: z.object({
         email: z.string().trim().min(1, "can't be blank").optional(),
         username: z.string().trim().min(1, "can't be blank").optional(),
-        password: z.string().optional(),
+        // NIST 800-63B section 5.1.1.2: memorized secrets must be at least 8 chars.
+        password: z.string().trim().min(8, 'must be at least 8 characters long').optional(),
         image: z.string().nullable().optional().transform(v => v === '' ? null : v),
         bio: z.string().nullable().optional().transform(v => v === '' ? null : v),
     }),
