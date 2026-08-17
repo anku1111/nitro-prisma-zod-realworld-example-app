@@ -18,18 +18,17 @@ RUN bun run build
 
 
 # ---------- Production stage ----------
+
+
+
 FROM oven/bun:1 AS production
 
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Copy the generated Nitro production output
 COPY --from=builder /app/.output ./.output
-
-# Copy Prisma runtime dependencies
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder /app/generated ./generated
 
 EXPOSE 3000
 
