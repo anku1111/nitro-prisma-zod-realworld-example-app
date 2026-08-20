@@ -6,10 +6,23 @@ pipeline {
     stages {
 
         stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+    steps {
+        checkout([
+            $class: 'GitSCM',
+            branches: [[name: '*/main']],
+            userRemoteConfigs: [[
+                url: 'https://github.com/anku1111/nitro-prisma-zod-realworld-example-app.git'
+            ]],
+            extensions: [
+                [$class: 'SubmoduleOption',
+                 disableSubmodules: false,
+                 recursiveSubmodules: true,
+                 trackingSubmodules: false,
+                 parentCredentials: true]
+            ]
+        ])
+    }
+}
 
         stage('Verify Repository') {
     steps {
