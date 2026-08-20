@@ -10,16 +10,23 @@ pipeline {
         }
 
         stage('Install Dependencies') {
-            steps {
-                sh 'bun install --frozen-lockfile'
-            }
-        }
+    steps {
+        sh '''
+            export PATH="/opt/bun:$PATH"
+            bun --version
+            bun install --frozen-lockfile
+        '''
+    }
+}
 
         stage('Generate Prisma Client') {
-            steps {
-                sh 'bun x prisma generate'
-            }
-        }
+    steps {
+        sh '''
+            export PATH="/opt/bun:$PATH"
+            bun x prisma generate
+        '''
+    }
+}
 
         stage('Run Bruno Tests') {
             steps {
