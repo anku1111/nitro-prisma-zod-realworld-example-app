@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment {
+    PATH = "/opt/bun/bin:${env.PATH}"
+}
     stages {
 
         stage('Checkout') {
