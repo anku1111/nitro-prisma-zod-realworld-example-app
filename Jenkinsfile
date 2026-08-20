@@ -11,6 +11,21 @@ pipeline {
             }
         }
 
+        stage('Verify Repository') {
+    steps {
+        sh '''
+            echo "Current directory:"
+            pwd
+
+            echo "RealWorld submodule:"
+            ls -la realworld
+
+            echo "Bruno test script:"
+            ls -l realworld/specs/api/run-api-tests-bruno.sh
+        '''
+    }
+}
+
         stage('Install Dependencies') {
     steps {
         sh '''
