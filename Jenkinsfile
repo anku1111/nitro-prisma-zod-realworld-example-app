@@ -23,7 +23,7 @@ pipeline {
         ])
     }
 }
-stage('Checkout') {
+stage('Checkout SCM') {
     steps {
         checkout scm
         sh '''
