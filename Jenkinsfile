@@ -23,6 +23,15 @@ pipeline {
         ])
     }
 }
+stage('Checkout') {
+    steps {
+        checkout scm
+        sh '''
+            git submodule sync --recursive
+            git submodule update --init --recursive
+        '''
+    }
+}
 
         stage('Verify Repository') {
     steps {
@@ -57,6 +66,8 @@ pipeline {
         '''
     }
 }
+
+
 
         stage('Run Bruno Tests') {
             steps {
